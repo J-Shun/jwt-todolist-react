@@ -1,3 +1,10 @@
 @tailwind base;
+
+@layer base {
+  input {
+    @apply bg-transparent outline-none w-full px-4;
+  }
+}
+
 @tailwind components;
 @tailwind utilities;

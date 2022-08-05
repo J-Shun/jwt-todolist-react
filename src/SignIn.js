@@ -1,5 +1,40 @@
-const url = "https://todoo.5xcamp.us/users";
-const SignIn = () => {
+import { useState } from "react";
+import axios from "axios";
+
+const url = "https://todoo.5xcamp.us/users/sign_in";
+
+const SignIn = ({ setGoTodo }) => {
+  const [signIn, setSignIn] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    const name = e.target.getAttribute("name");
+    const value = e.target.value;
+    setSignIn((prevData) => {
+      return {
+        ...prevData,
+        [name]: value,
+      };
+    });
+  };
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    const { email, password } = signIn;
+    const obj = { user: { email: email, password: password } };
+    axios
+      .post(url, obj)
+      .then((res) => {
+        localStorage.setItem("auth", res.headers.authorization);
+        setGoTodo(true);
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  };
+
   return (
     <form className="px-5">
       <div className="mb-3">
@@ -7,30 +42,47 @@ const SignIn = () => {
           htmlFor="enterEmail"
           className="text-yellow-500 inline-block w-full"
         >
-          C:\Users\TaskManager\SignIn\Email
+          Enter email:
         </label>
-        <input
-          type="text"
-          className="w-full bg-transparent"
-          id="enterEmail"
-          placeholder=">"
-        />
+        <div className="relative">
+          <span className="absolute pointer-events-none">{">"}</span>
+          <input
+            type="text"
+            id="enterEmail"
+            name="email"
+            value={signIn.email}
+            onChange={(e) => {
+              handleChange(e);
+            }}
+          />
+        </div>
       </div>
       <div className="mb-3">
         <label
-          htmlFor="enterPassword"
+          htmlFor="password"
           className="text-yellow-500 inline-block w-full"
         >
-          C:\Users\TaskManager\SignIn\Password
+          Enter password:
         </label>
-        <input
-          type="enterPassword"
-          className="w-full bg-transparent"
-          id="password"
-          placeholder=">"
-        />
+        <div className="relative">
+          <span className="absolute pointer-events-none">{">"}</span>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value={signIn.password}
+            onChange={(e) => {
+              handleChange(e);
+            }}
+          />
+        </div>
       </div>
-      <button className="block mx-auto py-3 px-6 mb-5 hover:bg-gray-800">
+      <button
+        className="block mx-auto py-3 px-6 mb-5 hover:bg-gray-800"
+        onClick={(e) => {
+          handleClick(e);
+        }}
+      >
         Y/y
       </button>
     </form>

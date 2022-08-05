@@ -83,68 +83,72 @@ const SignUp = ({ setSignIn }) => {
           htmlFor="setEmail"
           className="text-yellow-500 inline-block w-full"
         >
-          C:\Users\TaskManager\SignUp\setEmail
+          Configure-- Enter your email
         </label>
-        <input
-          type="text"
-          className="w-full bg-transparent"
-          id="setEmail"
-          placeholder=">"
-          name="setEmail"
-          value={user.setEmail}
-          onChange={(e) => handleChange(e)}
-        />
+        <div className="relative">
+          <span className="absolute pointer-events-none">{">"}</span>
+          <input
+            type="text"
+            id="setEmail"
+            name="setEmail"
+            value={user.setEmail}
+            onChange={(e) => handleChange(e)}
+          />
+        </div>
       </div>
       <div className="mb-3">
         <label
           htmlFor="setUsername"
           className="text-yellow-500 inline-block w-full"
         >
-          C:\Users\TaskManager\SignUp\setUsername
+          Configure-- Enter your name
         </label>
-        <input
-          type="text"
-          className="w-full bg-transparent"
-          id="setUsername"
-          placeholder=">"
-          name="setUsername"
-          value={user.setUsername}
-          onChange={(e) => handleChange(e)}
-        />
+        <div className="relative">
+          <span className="absolute pointer-events-none">{">"}</span>
+          <input
+            type="text"
+            id="setUsername"
+            name="setUsername"
+            value={user.setUsername}
+            onChange={(e) => handleChange(e)}
+          />
+        </div>
       </div>
       <div className="mb-3">
         <label
           htmlFor="setPassword"
           className="text-yellow-500 inline-block w-full"
         >
-          C:\Users\TaskManager\SignUp\setPassword
+          Configure-- Enter your password
         </label>
-        <input
-          type="password"
-          className="w-full bg-transparent"
-          id="setPassword"
-          placeholder=">"
-          name="setPassword"
-          value={user.setPassword}
-          onChange={(e) => handleChange(e)}
-        />
+        <div className="relative">
+          <span className="absolute pointer-events-none">{">"}</span>
+          <input
+            type="password"
+            id="setPassword"
+            name="setPassword"
+            value={user.setPassword}
+            onChange={(e) => handleChange(e)}
+          />
+        </div>
       </div>
       <div className="mb-3">
         <label
           htmlFor="checkPassword"
           className="text-yellow-500 inline-block w-full"
         >
-          C:\Users\TaskManager\SignUp\checkPassword
+          Check-- Enter your email again
         </label>
-        <input
-          type="password"
-          className="w-full bg-transparent"
-          id="checkPassword"
-          placeholder=">"
-          name="checkPassword"
-          value={user.checkPassword}
-          onChange={(e) => handleChange(e)}
-        />
+        <div className="relative">
+          <span className="absolute pointer-events-none">{">"}</span>
+          <input
+            type="password"
+            id="checkPassword"
+            name="checkPassword"
+            value={user.checkPassword}
+            onChange={(e) => handleChange(e)}
+          />
+        </div>
       </div>
       <button
         className="block mx-auto py-3 px-6 mb-5 hover:bg-gray-800"
