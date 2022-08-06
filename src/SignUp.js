@@ -1,6 +1,9 @@
 import { useState } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
+const swal = withReactContent(Swal);
 const url = "https://todoo.5xcamp.us/users";
 
 const SignUp = ({ setSignIn }) => {
@@ -37,11 +40,19 @@ const SignUp = ({ setSignIn }) => {
       axios
         .post(url, obj)
         .then((res) => {
-          alert("Sign up success");
+          swal.fire({
+            icon: "success",
+            title: "Sign up succeeds",
+            showConfirmButton: false,
+            timer: 1500,
+          });
           setSignIn(true);
         })
         .catch((err) => {
-          alert(err);
+          swal.fire({
+            icon: "error",
+            title: "Sign up fails",
+          });
         });
       return;
     }
@@ -50,7 +61,10 @@ const SignUp = ({ setSignIn }) => {
   function checkEmail(email) {
     const rule = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/g;
     if (!email.match(rule)) {
-      alert("Invalid Email");
+      swal.fire({
+        icon: "error",
+        title: "Invalid email",
+      });
       return false;
     }
     return true;
@@ -58,19 +72,28 @@ const SignUp = ({ setSignIn }) => {
 
   function checkUsername(username) {
     if (username.length < 1) {
-      alert("Please enter username");
+      swal.fire({
+        icon: "error",
+        title: "Please enter username",
+      });
       return false;
     }
     return true;
   }
 
   function checkDoublePassword(password, checkPassword) {
-    if (password !== checkPassword) {
-      alert("Passwords are inconsistent");
+    if (password.length < 6) {
+      swal.fire({
+        icon: "error",
+        title: "Password must be at least 6 characters long",
+      });
       return false;
     }
-    if (password < 6) {
-      alert("Password must be at least 6 characters long");
+    if (password !== checkPassword) {
+      swal.fire({
+        icon: "error",
+        title: "Inconsistent passwords",
+      });
       return false;
     }
     return true;

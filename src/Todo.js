@@ -1,20 +1,28 @@
 import { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import axios from "axios";
-import Terminal from "./Terminal";
 import Log from "./Log";
 import Case from "./Case";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
+const swal = withReactContent(Swal);
+const loading = () => {
+  swal.fire({
+    title: "Loading",
+    showConfirmButton: false,
+    timerProgressBar: true,
+    timer: 600,
+  });
+};
 const url = "https://todoo.5xcamp.us/";
 
-function Todo() {
+const Todo = () => {
   const [goHome, setGoHome] = useState(false);
   const [list, setList] = useState([]);
   const [category, setCategory] = useState("all");
   const [task, setTask] = useState({
-    Date: "",
-    Info: "",
-    Status: "",
+    info: "",
   });
 
   useEffect(() => {
@@ -37,7 +45,6 @@ function Todo() {
       .then(
         axios.spread((checkResult, getResult) => {
           setList(getResult.data.todos);
-          console.log(list);
         })
       )
       .catch((err) => {
@@ -50,38 +57,91 @@ function Todo() {
     setTask((prevData) => {
       return {
         ...prevData,
-        Info: e.target.value,
+        info: e.target.value,
       };
+    });
+  };
+
+  const addTask = () => {
+    const time = new Date();
+    const createdTime = time.toString().slice(0, 24);
+    const sendData = {
+      todo: { content: `${task.info}/-t${createdTime} (Created)` },
+    };
+    if (sendData.length < 1) return;
+
+    if (task.info.includes("/-q")) return logout();
+
+    setTask({ info: "" });
+    loading();
+    axios
+      .post(url + "todos", sendData)
+      .then((res) => {
+        setList((prevData) => {
+          return [res.data, ...prevData];
+        });
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  };
+
+  const logout = () => {
+    loading();
+    axios.delete(url + "users/sign_out").then((res) => {
+      localStorage.removeItem("auth");
+      setGoHome(true);
     });
   };
 
   if (goHome) return <Navigate to="/" />;
 
   return (
-    <Terminal>
+    <>
       <Log category={category} setCategory={setCategory} />
-      <ul className="px-2 max-h-123 overflow-auto scrollbar-hide">
-        <Case />
-        <Case />
-        <Case />
-        <Case />
-        <Case />
-        <Case />
-        <Case />
-        <Case />
+      <ul className="px-2 h-123 overflow-auto scrollbar-hide">
+        {list.map((task) => {
+          const { id, content, completed_at } = task;
+          return (
+            <Case
+              key={id}
+              task={task}
+              id={id}
+              content={content}
+              completed_at={completed_at}
+              category={category}
+              setList={setList}
+            />
+          );
+        })}
       </ul>
       <hr></hr>
-      <div className="relative px-2">
+      <div className="relative p-2">
         <span className="absolute pointer-events-none">{">"}</span>
-        <input type="text" onChangeCapture={(e) => handleChange(e)} />
-        {task.Info.length > 0 && (
-          <button className="block ml-4 text-yellow-500 hover:bg-gray-800">
-            Click to add
+        <input
+          type="text"
+          onChange={(e) => handleChange(e)}
+          onKeyUp={(e) => {
+            if (e.key === "Enter") {
+              if (e.target.value < 1) return;
+              addTask();
+            }
+          }}
+          value={task.info}
+        />
+        {task.info.length > 0 && (
+          <button
+            className="block ml-4 text-yellow-500 hover:bg-gray-800"
+            onClick={() => {
+              addTask();
+            }}
+          >
+            Press "Enter" or click here to add task
           </button>
         )}
       </div>
-    </Terminal>
+    </>
   );
-}
+};
 
 export default Todo;

@@ -1,6 +1,9 @@
 import { useState } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
+const swal = withReactContent(Swal);
 const url = "https://todoo.5xcamp.us/users/sign_in";
 
 const SignIn = ({ setGoTodo }) => {
@@ -28,10 +31,20 @@ const SignIn = ({ setGoTodo }) => {
       .post(url, obj)
       .then((res) => {
         localStorage.setItem("auth", res.headers.authorization);
+        swal.fire({
+          icon: "success",
+          title: "Sign In succeeds",
+          showConfirmButton: false,
+          timer: 1500,
+        });
         setGoTodo(true);
       })
       .catch((err) => {
-        alert(err);
+        console.log(err);
+        swal.fire({
+          icon: "error",
+          title: "Invalid email and password",
+        });
       });
   };
 

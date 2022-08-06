@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
-import Terminal from "./Terminal";
 import Category from "./Category";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
@@ -29,35 +28,33 @@ function Home() {
 
   return (
     <>
-      <Terminal>
-        <Category>
-          <button
-            className={`flex-1 py-3 px-6 text-xl bg-gray-800 hover:bg-transparent ${
-              signIn === true && "bg-transparent"
-            }`}
-            onClick={() => {
-              setSignIn(true);
-            }}
-          >
-            >Sign In
-          </button>
-          <button
-            className={`flex-1 py-3 px-6 text-xl bg-gray-800 hover:bg-transparent ${
-              signIn === false && "bg-transparent"
-            }`}
-            onClick={() => {
-              setSignIn(false);
-            }}
-          >
-            >Sign Up
-          </button>
-        </Category>
-        {signIn ? (
-          <SignIn setGoTodo={setGoTodo} />
-        ) : (
-          <SignUp setSignIn={setSignIn} />
-        )}
-      </Terminal>
+      <Category>
+        <button
+          className={`flex-1 py-3 px-6 text-xl bg-gray-800 hover:bg-transparent ${
+            signIn === true && "bg-transparent"
+          }`}
+          onClick={() => {
+            setSignIn(true);
+          }}
+        >
+          {">"}Sign In
+        </button>
+        <button
+          className={`flex-1 py-3 px-6 text-xl bg-gray-800 hover:bg-transparent ${
+            signIn === false && "bg-transparent"
+          }`}
+          onClick={() => {
+            setSignIn(false);
+          }}
+        >
+          {">"}Sign Up
+        </button>
+      </Category>
+      {signIn ? (
+        <SignIn setGoTodo={setGoTodo} />
+      ) : (
+        <SignUp setSignIn={setSignIn} />
+      )}
     </>
   );
 }
