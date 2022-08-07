@@ -94,7 +94,7 @@ const Todo = () => {
     });
   };
 
-  if (goHome) return <Navigate to="/" />;
+  if (goHome) return <Navigate to="/jwt-todolist-react/" />;
 
   return (
     <>

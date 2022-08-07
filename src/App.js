@@ -41,8 +41,8 @@ const App = () => {
       <Terminal isDark={isDark}>
         <Router>
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/todo" element={<Todo />} />
+            <Route path="/jwt-todolist-react/" element={<Home />} />
+            <Route path="/jwt-todolist-react/todo" element={<Todo />} />
           </Routes>
         </Router>
       </Terminal>
