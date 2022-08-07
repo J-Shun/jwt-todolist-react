@@ -129,15 +129,19 @@ const Todo = () => {
           }}
           value={task.info}
         />
-        {task.info.length > 0 && (
+        {task.info.length > 0 ? (
           <button
             className="block ml-4 text-yellow-500 hover:bg-gray-800"
             onClick={() => {
               addTask();
             }}
           >
-            Press "Enter" or click here to add task
+            Press "Enter" or click here to sender
           </button>
+        ) : (
+          <div className="ml-4 text-gray-500 hover:bg-gray-800">
+            Enter "/-q" to logout
+          </div>
         )}
       </div>
     </>
