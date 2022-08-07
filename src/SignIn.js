@@ -27,6 +27,7 @@ const SignIn = ({ setGoTodo }) => {
     e.preventDefault();
     const { email, password } = signIn;
     const obj = { user: { email: email, password: password } };
+    axios.defaults.headers.common["Authorization"] = "";
     axios
       .post(url, obj)
       .then((res) => {

@@ -87,7 +87,6 @@ const Todo = () => {
   };
 
   const logout = () => {
-    loading();
     axios.delete(url + "users/sign_out").then((res) => {
       localStorage.removeItem("auth");
       setGoHome(true);
@@ -136,7 +135,7 @@ const Todo = () => {
               addTask();
             }}
           >
-            Press "Enter" or click here to sender
+            Press "Enter" or click here to send
           </button>
         ) : (
           <div className="ml-4 text-gray-500 hover:bg-gray-800">
