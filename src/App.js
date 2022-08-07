@@ -1,9 +1,10 @@
 import Home from "./Home";
 import Todo from "./Todo";
 import { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import { BsFillSunFill, BsFillMoonFill } from "react-icons/bs";
 import Terminal from "./Terminal";
+import img from "./img/axiom-pattern.png";
 
 const App = () => {
   const [isDark, setIsDark] = useState(true);
@@ -16,7 +17,7 @@ const App = () => {
       className={`bg-repeat min-h-screen text-white px-5 overflow-hidden ${
         isDark ? "bg-black" : "bg-white"
       }`}
-      style={{ backgroundImage: `url(./img/axiom-pattern.png)` }}
+      style={{ backgroundImage: `url(${img})` }}
     >
       <h1
         className={`md:text-4xl text-2xl text-center my-10 break-words ${
@@ -39,12 +40,12 @@ const App = () => {
         )}
       </div>
       <Terminal isDark={isDark}>
-        <Router>
+        <HashRouter>
           <Routes>
-            <Route path="/jwt-todolist-react/" element={<Home />} />
-            <Route path="/jwt-todolist-react/todo" element={<Todo />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/todo" element={<Todo />} />
           </Routes>
-        </Router>
+        </HashRouter>
       </Terminal>
     </main>
   );

@@ -24,7 +24,7 @@ function Home() {
       });
   }, []);
 
-  if (goTodo) return <Navigate to="/jwt-todolist-react/todo" />;
+  if (goTodo) return <Navigate to="/todo" />;
 
   return (
     <>

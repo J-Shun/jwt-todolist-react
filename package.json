@@ -2,7 +2,7 @@
   "version": "0.1.0",
   "private": true,
   "name": "daily-thing",
-  "homepage": "https://J-Shun.github.io/jwt-todolist-react/",
+  "homepage": "http://J-Shun.github.io/jwt-todolist-react",
   "dependencies": {
     "@emotion/styled": "^11.10.0",
     "@testing-library/jest-dom": "^5.16.4",
