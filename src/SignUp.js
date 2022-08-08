@@ -160,7 +160,7 @@ const SignUp = ({ setSignIn }) => {
           htmlFor="checkPassword"
           className="text-yellow-500 inline-block w-full"
         >
-          Check-- Enter your email again
+          Check-- Enter your password again
         </label>
         <div className="relative">
           <span className="absolute pointer-events-none">{">"}</span>
